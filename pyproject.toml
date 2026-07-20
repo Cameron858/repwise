@@ -3,14 +3,20 @@ name = "repwise"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-authors = [
-    { name = "Cameron", email = "cameronwood858@googlemail.com" }
-]
+authors = [{ name = "Cameron", email = "cameronwood858@googlemail.com" }]
 requires-python = ">=3.13"
-dependencies = []
-
-[project.scripts]
-repwise = "repwise:main"
+dependencies = [
+    "google-adk>=2.5.0",
+    "google-api-python-client>=2.198.0",
+    "google-auth-httplib2>=0.4.0",
+    "google-auth-oauthlib>=1.4.0",
+    "ipykernel>=7.3.0",
+    "numpy>=2.5.1",
+    "openpyxl>=3.1.5",
+    "pandas>=3.0.3",
+    "pydantic>=2.13.4",
+    "pyprojroot>=0.3.0",
+]
 
 [build-system]
 requires = ["hatchling"]
