@@ -1501,6 +1501,7 @@ dependencies = [
     { name = "pandas" },
     { name = "pydantic" },
     { name = "pyprojroot" },
+    { name = "python-dotenv" },
 ]
 
 [package.dev-dependencies]
@@ -1522,6 +1523,7 @@ requires-dist = [
     { name = "pandas", specifier = ">=3.0.3" },
     { name = "pydantic", specifier = ">=2.13.4" },
     { name = "pyprojroot", specifier = ">=0.3.0" },
+    { name = "python-dotenv", specifier = ">=1.2.2" },
 ]
 
 [package.metadata.requires-dev]
