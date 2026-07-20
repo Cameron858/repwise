@@ -225,3 +225,6 @@ data/*
 # Databases
 db/*
 !db/.gitkeep
+
+# draw.io backup files
+*.bkp
