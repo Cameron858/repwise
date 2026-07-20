@@ -1,0 +1,132 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Page-1" id="jq6_5Y-AOL5Gdcr8AJcR">
+    <mxGraphModel dx="1141" dy="679" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="qj49CuHRrNYyztjvhuPe-32" value="Ingestion" style="rounded=1;whiteSpace=wrap;fillColor=none;dashed=1;dashPattern=8 8;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="50" width="650" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="qj49CuHRrNYyztjvhuPe-1" target="qj49CuHRrNYyztjvhuPe-31">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="630" y="260" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="600" y="260" />
+              <mxPoint x="600" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-29" value="Google Sheets API&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Save rows locally&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="qj49CuHRrNYyztjvhuPe-25">
+          <mxGeometry x="0.0497" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-1" value="Google Cloud Project" style="rounded=1;whiteSpace=wrap;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;spacingTop=0;spacingLeft=0;spacingRight=0;spacingBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;spacing=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="130" width="370" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-24" value="Google Sheets" style="group;verticalAlign=bottom;spacing=0;labelPosition=center;verticalLabelPosition=top;align=center;whiteSpace=wrap;html=1;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="140" y="170" width="310" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-2" value="&lt;p&gt;&lt;br&gt;&lt;/p&gt;" style="rounded=1;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;spacingBottom=0;spacingRight=0;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-24">
+          <mxGeometry width="309.99999999999994" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-3" value="Assets" style="childLayout=tableLayout;recursiveResize=0;strokeColor=#98bf21;fillColor=#A7C942;shadow=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-24">
+          <mxGeometry x="14.09090909090909" y="40" width="281.8181818181818" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-4" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;strokeColor=inherit;fillColor=#ffffff;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-3">
+          <mxGeometry width="281.8181818181818" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-5" value="Date" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=#A7C942;align=center;fontStyle=1;fontColor=#FFFFFF;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-4">
+          <mxGeometry width="76" height="26" as="geometry">
+            <mxRectangle width="76" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-6" value="Exercise" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=#A7C942;align=center;fontStyle=1;fontColor=#FFFFFF;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-4">
+          <mxGeometry x="76" width="80" height="26" as="geometry">
+            <mxRectangle width="80" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-7" value="Record" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=#A7C942;align=center;fontStyle=1;fontColor=#FFFFFF;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-4">
+          <mxGeometry x="156" width="126" height="26" as="geometry">
+            <mxRectangle width="126" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-8" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;strokeColor=inherit;fillColor=#ffffff;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-3">
+          <mxGeometry y="26" width="281.8181818181818" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-9" value="01/01/2026" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;align=center;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-8">
+          <mxGeometry width="76" height="25" as="geometry">
+            <mxRectangle width="76" height="25" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-10" value="Bench" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;align=center;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-8">
+          <mxGeometry x="76" width="80" height="25" as="geometry">
+            <mxRectangle width="80" height="25" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-11" value="4x5@95" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;align=center;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-8">
+          <mxGeometry x="156" width="126" height="25" as="geometry">
+            <mxRectangle width="126" height="25" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-12" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=1;strokeColor=inherit;fillColor=#EAF2D3;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-3">
+          <mxGeometry y="51" width="281.8181818181818" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-13" value="" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-12">
+          <mxGeometry width="76" height="24" as="geometry">
+            <mxRectangle width="76" height="24" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-14" value="Incline Bench" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-12">
+          <mxGeometry x="76" width="80" height="24" as="geometry">
+            <mxRectangle width="80" height="24" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-15" value="3x12@75" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-12">
+          <mxGeometry x="156" width="126" height="24" as="geometry">
+            <mxRectangle width="126" height="24" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-16" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;strokeColor=inherit;fillColor=#ffffff;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-3">
+          <mxGeometry y="75" width="281.8181818181818" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-17" value="" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;fontStyle=0;align=center;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-16">
+          <mxGeometry width="76" height="26" as="geometry">
+            <mxRectangle width="76" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-18" value="Triceps" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;fontStyle=0;align=center;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-16">
+          <mxGeometry x="76" width="80" height="26" as="geometry">
+            <mxRectangle width="80" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-19" value="3x15@28.6" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;fontStyle=0;align=center;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-16">
+          <mxGeometry x="156" width="126" height="26" as="geometry">
+            <mxRectangle width="126" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-20" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=1;strokeColor=inherit;fillColor=#EAF2D3;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-3">
+          <mxGeometry y="101" width="281.8181818181818" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-21" value="02/01/2026" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-20">
+          <mxGeometry width="76" height="24" as="geometry">
+            <mxRectangle width="76" height="24" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-22" value="Squat" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-20">
+          <mxGeometry x="76" width="80" height="24" as="geometry">
+            <mxRectangle width="80" height="24" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-23" value="1x1@160, 3x3@135" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=inherit;whiteSpace=wrap;html=1;" vertex="1" parent="qj49CuHRrNYyztjvhuPe-20">
+          <mxGeometry x="156" width="126" height="24" as="geometry">
+            <mxRectangle width="126" height="24" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qj49CuHRrNYyztjvhuPe-31" value="SQLite database" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="630" y="220" width="60" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
