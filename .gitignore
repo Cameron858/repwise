@@ -228,3 +228,7 @@ db/*
 
 # draw.io backup files
 *.bkp
+
+# Credentials
+credentials/*
+!credentials/.gitkeep
