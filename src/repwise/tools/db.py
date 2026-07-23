@@ -95,3 +95,103 @@ def sample_table_data(
             }
     except Exception as e:
         return {"status": "error", "message": f"Database query failed: {e!s}"}
+
+
+def get_exercise_history(exercise_name: str, limit: int = 20) -> dict:
+    """Returns chronological history of a specific exercise.
+
+    Args:
+        exercise_name: The name of the exercise to retrieve history for.
+        limit: Maximum number of historical records to return (default: 20).
+
+    Returns:
+        A dict containing exercise history with dates, weights, reps, and sets,
+        ordered chronologically from oldest to newest.
+    """
+    raise NotImplementedError
+
+
+def get_session_details(date: str) -> dict:
+    """Returns all exercises performed on a specific date.
+
+    Args:
+        date: The session date in YYYY-MM-DD format.
+
+    Returns:
+        A dict containing all exercises from that session with their stats
+        (sets, reps, weight, order).
+    """
+    raise NotImplementedError
+
+
+def get_personal_records() -> dict:
+    """Returns the maximum weight achieved for each exercise.
+
+    Returns:
+        A dict mapping exercise names to their personal record (max weight)
+        and the date it was achieved.
+    """
+    raise NotImplementedError
+
+
+def get_recent_workouts(days: int = 30) -> dict:
+    """Returns unique session dates and exercise count in the last N days.
+
+    Args:
+        days: Number of past days to analyse (default: 30).
+
+    Returns:
+        A dict containing recent workout sessions with counts and frequency metrics.
+    """
+    raise NotImplementedError
+
+
+def get_exercise_stats(exercise_name: str) -> dict:
+    """Aggregates statistics for a specific exercise.
+
+    Args:
+        exercise_name: The name of the exercise to analyse.
+
+    Returns:
+        A dict containing: average weight, max reps, total volume,
+        session count, and date range.
+    """
+    raise NotImplementedError
+
+
+def get_progress_metrics(exercise_name: str, start_date: str, end_date: str) -> dict:
+    """Calculates progress for an exercise between two dates.
+
+    Args:
+        exercise_name: The name of the exercise to track.
+        start_date: Start date in YYYY-MM-DD format.
+        end_date: End date in YYYY-MM-DD format.
+
+    Returns:
+        A dict containing weight increase, rep increase, volume change,
+        and percentage improvements.
+    """
+    raise NotImplementedError
+
+
+def list_all_exercises() -> dict:
+    """Returns a normalised list of all exercises in the database.
+
+    Returns:
+        A dict containing all unique exercise names from the exercises table.
+    """
+    raise NotImplementedError
+
+
+def get_workout_frequency(start_date: str, end_date: str) -> dict:
+    """Analyses workout frequency between two dates.
+
+    Args:
+        start_date: Start date in YYYY-MM-DD format.
+        end_date: End date in YYYY-MM-DD format.
+
+    Returns:
+        A dict containing days trained, rest days, average gap between sessions,
+        and workout frequency metrics.
+    """
+    raise NotImplementedError
