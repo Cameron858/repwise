@@ -232,3 +232,9 @@ db/*
 # Credentials
 credentials/*
 !credentials/.gitkeep
+
+# Google ADK (Agent Development Kit)
+# Session state, local SQLite DBs, and runtime metadata
+.adk/
+*.db
+sessions.db
