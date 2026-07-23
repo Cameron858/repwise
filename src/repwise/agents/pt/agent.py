@@ -1,6 +1,6 @@
 from google.adk.agents.llm_agent import Agent
 
-from repwise.tools.db import get_schema
+from repwise.tools.db import get_schema, sample_table_data
 
 root_agent = Agent(
     name="pt_agent",
@@ -12,5 +12,5 @@ root_agent = Agent(
         "use the available tools to retrieve factual workout data. "
         "Analyse their recent performance and give concise, actionable training advice."
     ),
-    tools=[get_schema],
+    tools=[get_schema, sample_table_data],
 )
