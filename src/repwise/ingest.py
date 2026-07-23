@@ -7,91 +7,60 @@ from .gcloud import get_dataframe
 
 REQUIRED_COLUMNS = ["date", "exercise", "record"]
 RECORD_PATTERN = r"(\d+)x(\d+)@(\d+(?:\.\d+)?)"
-
-ARTIFACTS = {}
 DB_PATH = here("db/repwise.db")
 
 
-def process_data(df: pd.DataFrame) -> pd.DataFrame:
-    """Validate and normalise a workout DataFrame.
-
-    Ensures required columns are present, explodes the `record` column into
-    separate rows, extracts `sets`, `reps`, and `weight`, and returns a
-    cleaned DataFrame ready for database insertion.
-    """
-    global ARTIFACTS
-
+def process_data(df: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, pd.DataFrame]]:
+    """Validate and normalise a workout DataFrame."""
+    artifacts = {}
     df = df.copy()
 
-    # pre-process
     df.columns = df.columns.str.lower().str.strip()
 
     for col in REQUIRED_COLUMNS:
         assert col in df.columns, f"Data must contain column {col!r}"
 
     if "notes" in df.columns:
-        notes = df.copy()
-        ARTIFACTS["notes"] = notes
+        artifacts["notes"] = df[df["notes"].notna()].copy()
         df = df.drop(columns=["notes"])
 
-    # Format datetime
-    df["date"] = pd.to_datetime(
-        df["date"].replace("", pd.NA), errors="coerce", dayfirst=True
+    df["date"] = (
+        pd.to_datetime(df["date"].replace("", pd.NA), errors="coerce", dayfirst=True)
+        .ffill()
+        .dt.strftime("%Y-%m-%d")
     )
-    df["date"] = df["date"].ffill()
-    df["date"] = df["date"].dt.strftime("%Y-%m-%d")
 
-    # Explode the record columns
     df["record"] = df["record"].str.strip(" ,").str.split(",")
     df = df.explode(column="record", ignore_index=True)
     df["record"] = df["record"].str.strip()
 
-    # Extract the NaN records
-    missed = df[df["record"].isna()].copy()
-    ARTIFACTS["missed"] = missed
+    artifacts["missed"] = df[df["record"].isna()].copy()
+    df = df.dropna(subset=["record"])
 
-    df = df.dropna()
+    is_valid = df["record"].str.fullmatch(RECORD_PATTERN, na=False)
+    artifacts["invalid"] = df[~is_valid].copy()
+    df = df[is_valid].copy()
 
-    assert not df.isna().sum().sum(), "Data still contains NaN values"
-
-    # Extract the records that do not match the pattern
-    invalid = df.loc[~df["record"].str.fullmatch(RECORD_PATTERN, na=False)]
-    ARTIFACTS["invalid"] = invalid
-
-    # Assert that all records now match the pattern
-    df = df.loc[df["record"].str.fullmatch(RECORD_PATTERN, na=False)]
-    assert df.loc[~df["record"].str.fullmatch(RECORD_PATTERN, na=False)].empty, (
-        f"Found {len(invalid)} invalid Record values:\n{invalid}"
-    )
-
-    # Extract sets, reps, weight
     df[["sets", "reps", "weight"]] = df["record"].str.extract(RECORD_PATTERN)
-
-    # Explicitly convert
     df["sets"] = df["sets"].astype(int)
     df["reps"] = df["reps"].astype(int)
     df["weight"] = df["weight"].astype(float)
+    df = df.drop(columns=["record"])
 
-    df = df.drop(columns=["record"], errors="ignore")
-
-    # Add order
     df["order"] = df.groupby(["date", "exercise"]).cumcount() + 1
 
-    return df
+    return df, artifacts
 
 
 def create_db(db_path=DB_PATH):
-    """Create the SQLite database schema if missing.
-
-    Creates `staging`, `exercises`, `sessions`, and `entries` tables at
-    the given `db_path`. Foreign keys are enabled for `entries`.
-    """
-    # Staging
+    """Create the SQLite database schema if missing."""
     with sqlite3.connect(db_path) as conn:
         cur = conn.cursor()
-        cur.execute("DROP TABLE IF EXISTS staging")
-        cur.execute(
+        cur.execute("PRAGMA foreign_keys = ON;")
+        cur.executescript(
             """
+            DROP TABLE IF EXISTS staging;
+
             CREATE TABLE staging (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date TEXT NOT NULL,
@@ -101,42 +70,17 @@ def create_db(db_path=DB_PATH):
                 weight REAL NOT NULL,
                 "order" INTEGER NOT NULL
             );
-            """
-        )
 
-    # Exercises
-    with sqlite3.connect(db_path) as conn:
-        cur = conn.cursor()
-        cur.execute(
-            """
             CREATE TABLE IF NOT EXISTS exercises (
-                id INTEGER PRIMARY KEY NOT NULL,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT UNIQUE NOT NULL
-            )
-            """
-        )
+            );
 
-    # Sessions
-    with sqlite3.connect(db_path) as conn:
-        cur = conn.cursor()
-        cur.execute(
-            """
             CREATE TABLE IF NOT EXISTS sessions (
-                id INTEGER PRIMARY KEY NOT NULL,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date TEXT UNIQUE NOT NULL
-            )
-            """
-        )
+            );
 
-    # Entries
-    with sqlite3.connect(db_path) as conn:
-        cur = conn.cursor()
-
-        # Enable Foreign Key support in SQLite (disabled by default)
-        cur.execute("PRAGMA foreign_keys = ON;")
-
-        cur.execute(
-            """
             CREATE TABLE IF NOT EXISTS entries (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 session_id INTEGER NOT NULL,
@@ -151,37 +95,39 @@ def create_db(db_path=DB_PATH):
             """
         )
 
+    conn.close()
+
 
 def populate_db(df: pd.DataFrame, db_path=DB_PATH):
-    """Populate the database from a processed DataFrame.
+    """Populate the database from a processed DataFrame."""
+    cols = ["date", "exercise", "sets", "reps", "weight", "order"]
 
-    Inserts processed rows into `staging`, upserts distinct exercises and
-    session dates, then inserts resolved rows into the `entries` table.
-    """
     with sqlite3.connect(db_path) as conn:
         cur = conn.cursor()
+        cur.execute("PRAGMA foreign_keys = ON;")
 
-        # Insert using explicit column names, passing only required DataFrame columns
-        cols = ["date", "exercise", "sets", "reps", "weight", "order"]
+        cur.executescript("DELETE FROM staging;")
+
         cur.executemany(
-            "INSERT INTO staging ('date', 'exercise', 'sets', 'reps', 'weight', 'order') VALUES (?, ?, ?, ?, ?, ?)",
-            df[cols].to_numpy(),
+            """
+            INSERT INTO staging (date, exercise, sets, reps, weight, "order")
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            df[cols].to_records(index=False).tolist(),
         )
 
-        exercises = cur.execute(
-            "SELECT DISTINCT exercise FROM staging ORDER BY exercise"
-        ).fetchall()
-        cur.executemany(
-            "INSERT OR IGNORE INTO exercises (name) VALUES(?)",
-            [e for e in exercises],
+        cur.execute(
+            """
+            INSERT OR IGNORE INTO exercises (name)
+            SELECT DISTINCT exercise FROM staging ORDER BY exercise
+            """
         )
 
-        dates = cur.execute(
-            "SELECT DISTINCT date FROM staging ORDER BY date"
-        ).fetchall()
-        cur.executemany(
-            "INSERT OR IGNORE INTO sessions (date) VALUES(?)",
-            [d for d in dates],
+        cur.execute(
+            """
+            INSERT OR IGNORE INTO sessions (date)
+            SELECT DISTINCT date FROM staging ORDER BY date
+            """
         )
 
         cur.execute(
@@ -200,18 +146,16 @@ def populate_db(df: pd.DataFrame, db_path=DB_PATH):
             """
         )
 
+    conn.close()
+
 
 def ingest_pipeline():
-    """Run the full ingestion pipeline.
-
-    Fetches a DataFrame via `get_dataframe()`, processes the data,
-    creates the database schema, and populates the database.
-    """
-    df = get_dataframe()
-    df = process_data(df)
+    """Run the full ingestion pipeline."""
+    raw_df = get_dataframe()
+    processed_df, _ = process_data(raw_df)
 
     create_db()
-    populate_db(df)
+    populate_db(processed_df)
 
 
 if __name__ == "__main__":
