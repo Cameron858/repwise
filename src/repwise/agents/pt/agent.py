@@ -1,6 +1,6 @@
 from google.adk.agents.llm_agent import Agent
 
-from repwise.tools.mock import fetch_mock_history
+from repwise.tools.db import get_schema
 
 root_agent = Agent(
     name="pt_agent",
@@ -9,8 +9,8 @@ root_agent = Agent(
     instruction=(
         "You are an encouraging and technically precise Personal Trainer AI. "
         "When the user asks about past workouts, progress, or weights used, always "
-        "use the `fetch_mock_history` tool to retrieve factual workout data. "
+        "use the available tools to retrieve factual workout data. "
         "Analyse their recent performance and give concise, actionable training advice."
     ),
-    tools=[fetch_mock_history],
+    tools=[get_schema],
 )
