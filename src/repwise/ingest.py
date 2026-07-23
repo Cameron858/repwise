@@ -107,6 +107,11 @@ def create_db(db_path=DB_PATH):
                 FOREIGN KEY (session_id) REFERENCES sessions (id) ON DELETE CASCADE,
                 FOREIGN KEY (exercise_id) REFERENCES exercises (id) ON DELETE CASCADE
             );
+
+            CREATE TABLE IF NOT EXISTS _metadata (
+                table_name TEXT PRIMARY KEY,
+                description TEXT NOT NULL
+            );
             """
         )
         logger.debug("Database schema created successfully")
@@ -167,6 +172,25 @@ def populate_db(df: pd.DataFrame, db_path=DB_PATH):
             """
         )
         logger.info(f"Successfully populated {cur.rowcount} entries into database")
+
+        cur.execute("DELETE FROM _metadata;")
+        cur.executemany(
+            """
+            INSERT INTO _metadata (table_name, description) VALUES (?, ?)
+            """,
+            [
+                (
+                    "sessions",
+                    "Contains top-level workout session logs, indexed chronologically by date.",
+                ),
+                (
+                    "entries",
+                    "Detailed exercise sets, reps, and weights associated with a specific session_id.",
+                ),
+                ("exercises", "Normalised lookup table of exercise names."),
+            ],
+        )
+        logger.info("Populated metadata table")
 
     conn.close()
 
