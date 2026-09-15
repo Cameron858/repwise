@@ -5,7 +5,9 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS exercises (
     id SERIAL PRIMARY KEY,
-    user_id UUID NOT NULL REFERENCES users(id),
+    user_id UUID NOT NULL 
+        REFERENCES users(id)
+        ON DELETE CASCADE,
     name TEXT NOT NULL,
     custom BOOLEAN NOT NULL DEFAULT TRUE,
 
@@ -14,13 +16,17 @@ CREATE TABLE IF NOT EXISTS exercises (
 
 CREATE TABLE IF NOT EXISTS sessions (
     id SERIAL PRIMARY KEY,
-    user_id UUID NOT NULL REFERENCES users(id),
+    user_id UUID NOT NULL 
+        REFERENCES users(id)
+        ON DELETE CASCADE,
     notes TEXT
 );
 
 CREATE TABLE IF NOT EXISTS set_types (
     id SERIAL PRIMARY KEY,
-    user_id UUID NOT NULL REFERENCES users(id),
+    user_id UUID NOT NULL 
+        REFERENCES users(id)
+        ON DELETE CASCADE,
     type TEXT NOT NULL,
 
     UNIQUE (user_id, type)
@@ -28,7 +34,9 @@ CREATE TABLE IF NOT EXISTS set_types (
 
 CREATE TABLE IF NOT EXISTS sets (
     id SERIAL PRIMARY KEY,
-    session_id INT NOT NULL REFERENCES sessions(id),
+    session_id INT NOT NULL
+        REFERENCES sessions(id)
+        ON DELETE CASCADE,
     exercise_id INT NOT NULL REFERENCES exercises(id),
     set_type_id INT NOT NULL REFERENCES set_types(id),
     number INT NOT NULL CHECK (number >= 0),
